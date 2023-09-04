@@ -21,5 +21,8 @@ public class User {
     private String role;
     private boolean active;
     @Transient
-    private String name = firstName + " " + middleName + " " + lastName;
+    private String name;
+    public String getName() {
+        return this.getFirstName() + " " + this.getMiddleName() + " " + this.getLastName();
+    }
 }
