@@ -2,7 +2,7 @@ package com.example.memoriesbackend.api;
 
 import com.example.memoriesbackend.dto.UserDto;
 import com.example.memoriesbackend.dto.UserRequestDto;
-import com.example.memoriesbackend.model.User;
+import com.example.memoriesbackend.model.security.User;
 import com.example.memoriesbackend.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +36,7 @@ public class UserRestController {
                 .build());
         return ResponseEntity.ok(UserDto.builder()
                 .id(user.getId())
-                .name(user.getName())
+                .name(user.getNameFirstMiddleLast())
                 .email(user.getEmail())
                 .role(user.getRole())
                 .active(user.isActive())
@@ -66,10 +66,10 @@ public class UserRestController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable String id) {
         logger.info("getUserById: " + id);
-        User user = userService.getUserById(Long.parseLong(id));
+        User user = userService.getUserById(Long.parseLong(id)).orElseThrow(() -> new RuntimeException("User not found"));
         return ResponseEntity.ok(UserDto.builder()
                 .id(user.getId())
-                .name(user.getName())
+                .name(user.getNameFirstMiddleLast())
                 .email(user.getEmail())
                 .role(user.getRole())
                 .active(user.isActive())
@@ -82,7 +82,7 @@ public class UserRestController {
         User user = userService.getUserByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
         return ResponseEntity.ok(UserDto.builder()
                 .id(user.getId())
-                .name(user.getName())
+                .name(user.getNameFirstMiddleLast())
                 .email(user.getEmail())
                 .role(user.getRole())
                 .active(user.isActive())

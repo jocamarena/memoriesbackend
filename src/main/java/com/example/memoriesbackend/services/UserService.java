@@ -1,6 +1,6 @@
 package com.example.memoriesbackend.services;
 
-import com.example.memoriesbackend.model.User;
+import com.example.memoriesbackend.model.security.User;
 import com.example.memoriesbackend.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,8 +18,8 @@ public class UserService {
     public Optional<User> getUserByEmail(String email){
         return userRepository.findByEmail(email);
     }
-    public User getUserById(Long id){
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    public Optional<User> getUserById(Long id){
+        return userRepository.findById(id);
     }
     public User saveUser(User user) {
         return userRepository.save(user);

@@ -1,6 +1,6 @@
 package com.example.memoriesbackend.repositories;
 
-import com.example.memoriesbackend.model.User;
+import com.example.memoriesbackend.model.security.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

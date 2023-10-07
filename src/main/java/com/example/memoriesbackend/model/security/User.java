@@ -1,4 +1,4 @@
-package com.example.memoriesbackend.model;
+package com.example.memoriesbackend.model.security;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,13 +16,14 @@ public class User {
     private String firstName;
     private String middleName;
     private String lastName;
+    @Column(unique = true)
     private String email;
     private String password;
     private String role;
     private boolean active;
     @Transient
-    private String name;
-    public String getName() {
-        return this.getFirstName() + " " + this.getMiddleName() + " " + this.getLastName();
+    private String nameFirstMiddleLast;
+    public String getNameFirstMiddleLast() {
+        return String.format("s% s% s%", this.getFirstName(), this.getMiddleName(), this.getLastName());
     }
 }
