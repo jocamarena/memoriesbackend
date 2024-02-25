@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 
@@ -67,6 +68,13 @@ public class MemoryRestController {
     }
     @DeleteMapping
     public ResponseEntity<Void> deleteAllMemories() {
+        memoryService.findAllMemories(Pageable.unpaged()).stream().map(Memory::getPicture).forEach(picture -> {
+            try {
+                new File(picture.getImage()).delete();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         memoryService.deleteAll();
         return ResponseEntity.noContent().build();
     }
