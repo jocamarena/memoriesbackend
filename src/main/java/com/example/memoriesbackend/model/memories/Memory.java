@@ -1,5 +1,6 @@
 package com.example.memoriesbackend.model.memories;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,10 +18,9 @@ public class Memory {
     private Long id;
     private String title;
     private String description;
-    private String image;
     private LocalDate date;
     @OneToOne
     private Picture picture;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Author author;
 }

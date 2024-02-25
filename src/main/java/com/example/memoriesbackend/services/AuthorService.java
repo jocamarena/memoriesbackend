@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.memoriesbackend.repositories.AuthorRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -13,6 +14,9 @@ public class AuthorService {
     private final AuthorRepository authorRepository;
     public AuthorService(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
+    }
+    public Optional<Author> findById(Long id) {
+        return authorRepository.findById(id);
     }
     public Long saveAuthor(Author author){
         authorRepository.save(author);

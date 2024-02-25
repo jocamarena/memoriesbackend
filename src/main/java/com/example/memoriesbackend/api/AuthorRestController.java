@@ -1,5 +1,6 @@
 package com.example.memoriesbackend.api;
 
+import com.example.memoriesbackend.exceptions.AuthorNotFoundException;
 import com.example.memoriesbackend.model.memories.Author;
 import com.example.memoriesbackend.services.AuthorService;
 import org.springframework.http.ResponseEntity;
@@ -23,5 +24,14 @@ public class AuthorRestController {
     public ResponseEntity<Author> saveAuthor(@RequestBody Author author) {
         authorService.saveAuthor(author);
         return ResponseEntity.ok(author);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAuthorById(@PathVariable Long id) {
+        authorService.findById(id).ifPresentOrElse(
+                author -> authorService.deleteById(id),
+                () -> {
+                    throw new AuthorNotFoundException("Author with id " + id + " not found");
+                });
+        return ResponseEntity.ok().build();
     }
 }
